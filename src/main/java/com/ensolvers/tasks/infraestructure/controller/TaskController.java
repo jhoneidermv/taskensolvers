@@ -1,6 +1,7 @@
 package com.ensolvers.tasks.infraestructure.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ensolvers.tasks.application.services.CreateTaskService;
+import com.ensolvers.tasks.domain.exception.TaskException;
 import com.ensolvers.tasks.domain.model.Task;
 
 @RestController
@@ -17,16 +19,16 @@ public class TaskController {
 	@Autowired
 	private CreateTaskService createTaskService;
 	
+	
 	@PostMapping(value = "/create")
-	public ResponseEntity<Task> createTask(@RequestBody Task task){
-		System.out.print("la tarea trae" + task + " - " + task.getName());
-		Task taskfinal = createTaskService.createTask(task);
-		if(taskfinal != null) {
+	public ResponseEntity<?> createTask(@RequestBody Task task) throws TaskException{
+		try {
+			Task taskfinal = createTaskService.createTask(task);
 			return ResponseEntity.ok(taskfinal);
-		} else {
-			System.out.println("Es null lo que se ingresó");
-			return null;
+		} catch (TaskException e) {
+			return new ResponseEntity<>("Error: " + e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
-		
 	}
+	
+	
 }

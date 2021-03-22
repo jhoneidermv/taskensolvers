@@ -1,9 +1,11 @@
 package com.ensolvers.tasks.domain.model;
 
 public class Task {
+	long id;
 	String name;
 
-	public Task(String nameTask) {
+	public Task(long id, String nameTask) {
+		this.id = id;
 		this.name = nameTask;
 	}
 	
@@ -15,5 +17,13 @@ public class Task {
 
 	public void setName(String nameTask) {
 		this.name = nameTask;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 }

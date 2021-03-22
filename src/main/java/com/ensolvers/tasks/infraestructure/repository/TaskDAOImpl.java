@@ -19,9 +19,7 @@ public class TaskDAOImpl implements TaskRepository {
 
 	@Override
 	public Task createTask(Task task) {
-		System.out.println("estoy en el taskDAO con la tarea " + task.getName());
 		TaskEntity taskEntity = taskDAO.save(TaskFactory.convertTaskdomainToTaskentity(task));
-		System.out.println("convertí la tareadomio a una entitý " + taskEntity.getName() + " y eso es lo que voy a retornar");
 		return TaskFactory.convertTaskentityToTaskdomain(taskEntity);
 	}
 
@@ -38,8 +36,8 @@ public class TaskDAOImpl implements TaskRepository {
 	}
 
 	@Override
-	public Task findTaskByName(String name) {
-		Optional<TaskEntity> taskEntity = taskDAO.findById(name);
+	public Task findTaskById(long id) {
+		Optional<TaskEntity> taskEntity = taskDAO.findById(id);
 		if(taskEntity.isPresent()) {
 			return TaskFactory.convertTaskentityToTaskdomain(taskEntity.get());
 		} else {
@@ -50,6 +48,11 @@ public class TaskDAOImpl implements TaskRepository {
 	@Override
 	public List<Task> listTasks() {
 		return TaskFactory.convertListentityToListdomain(taskDAO.findAll());
+	}
+
+	@Override
+	public List<Task> findByName(String name) {
+		return TaskFactory.convertListentityToListdomain(taskDAO.findByName(name));
 	}
 
 }

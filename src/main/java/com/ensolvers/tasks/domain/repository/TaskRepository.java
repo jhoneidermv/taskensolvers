@@ -8,6 +8,7 @@ public interface TaskRepository {
 	public Task createTask(Task task);
 	public Task editTask(Task task);
 	public Task deleteTask(Task task);
-	public Task findTaskByName(String name);
+	public Task findTaskById(long id);
 	public List<Task> listTasks();
+	public List<Task> findByName(String name);
 }

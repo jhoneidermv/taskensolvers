@@ -8,13 +8,13 @@ import org.springframework.stereotype.Service;
 import com.ensolvers.tasks.application.services.CreateTaskService;
 import com.ensolvers.tasks.application.services.DeleteTaskService;
 import com.ensolvers.tasks.application.services.EditTaskService;
-import com.ensolvers.tasks.application.services.FindTaskByNameService;
+import com.ensolvers.tasks.application.services.FindTaskByIdService;
 import com.ensolvers.tasks.application.services.ListTasksService;
 import com.ensolvers.tasks.domain.model.Task;
 import com.ensolvers.tasks.domain.model.TaskManager;
 
 @Service
-public class TaskManagerService implements CreateTaskService, DeleteTaskService, EditTaskService, FindTaskByNameService, ListTasksService{
+public class TaskManagerService implements CreateTaskService, DeleteTaskService, EditTaskService, FindTaskByIdService, ListTasksService{
 
 	@Autowired
 	private TaskManager taskManager;
@@ -25,8 +25,8 @@ public class TaskManagerService implements CreateTaskService, DeleteTaskService,
 	}
 
 	@Override
-	public Task findTaskByName(String name) {
-		return taskManager.findByName(name);
+	public Task findTaskById(long id) {
+		return taskManager.findById(id);
 	}
 
 	@Override
@@ -41,6 +41,7 @@ public class TaskManagerService implements CreateTaskService, DeleteTaskService,
 
 	@Override
 	public Task createTask(Task task) {
+		System.out.println("estoy en el service con la tarea " + task.getId() + " - " + task.getName() + " y voy para el domain");
 		return taskManager.createTaskInDomain(task);
 	}
 

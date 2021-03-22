@@ -14,12 +14,18 @@ public class TaskManager {
 	private TaskRepository taskRepository;
 
 	public Task createTaskInDomain(Task task) {
-		System.out.println("llegué a taskmanager con la tarea " + task.getName() + "y voy para el repository");
-		return taskRepository.createTask(task);
+		System.out.println("estoy en el domain con la tarea " + task.getId() + " - " + task.getName());
+		List<Task> foundTask = taskRepository.findByName(task.getName());
+		if(foundTask.isEmpty()) {
+			System.out.println("como es nueva voy a agregar la tarea " + task.getId() + " - " + task.getName());
+			return taskRepository.createTask(task);
+		} else {
+			throw new TaskException("La tarea ya existe");
+		}
 	}
 
 	public Task editTask(Task task) {
-		Task foundTask = taskRepository.findTaskByName(task.getName());
+		Task foundTask = taskRepository.findTaskById(task.getId());
 		if(foundTask != null) {
 			foundTask = task;
 			return taskRepository.editTask(foundTask);
@@ -29,7 +35,7 @@ public class TaskManager {
 	}
 
 	public Task deleteTask(Task task) {
-		Task foundTask = taskRepository.findTaskByName(task.getName());
+		Task foundTask = taskRepository.findTaskById(task.getId());
 		if(foundTask != null) {
 			return taskRepository.deleteTask(foundTask);
 		} else {
@@ -37,8 +43,8 @@ public class TaskManager {
 		}
 	}
 	
-	public Task findByName(String name) {
-		return taskRepository.findTaskByName(name);
+	public Task findById(long id) {
+		return taskRepository.findTaskById(id);
 	}
 	
 	public List<Task> listTasks() {

@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -28,9 +27,9 @@ public class TaskManagerTest {
 	@Test
 	public void createTask() {
 		//Arrange
-		Task task = new Task("crear pruebas unitarias");
+		Task task = new Task(1, "crear pruebas unitarias");
 		when(taskRepository.createTask(task))
-				.thenReturn(new Task("crear pruebas unitarias"));
+				.thenReturn(new Task(1, "crear pruebas unitarias"));
 		
 		//Act
 		System.out.println("voy a enviar la tarea " + task.getName());
