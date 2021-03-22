@@ -35,13 +35,12 @@ public class TaskManagerService implements CreateTaskService, DeleteTaskService,
 	}
 
 	@Override
-	public Task deleteTask(Task task) {
-		return taskManager.deleteTask(task);
+	public Task deleteTask(long idTask) {
+		return taskManager.deleteTask(idTask);
 	}
 
 	@Override
 	public Task createTask(Task task) {
-		System.out.println("estoy en el service con la tarea " + task.getId() + " - " + task.getName() + " y voy para el domain");
 		return taskManager.createTaskInDomain(task);
 	}
 

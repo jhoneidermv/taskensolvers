@@ -1,8 +1,8 @@
 package com.ensolvers.tasks.domain.model;
 
 public class Task {
-	long id;
-	String name;
+	private long id;
+	private String name;
 
 	public Task(long id, String nameTask) {
 		this.id = id;
