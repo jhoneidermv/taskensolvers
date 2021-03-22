@@ -2,6 +2,7 @@ package com.ensolvers.tasks.domain.model;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.ensolvers.tasks.domain.exception.TaskException;
@@ -9,11 +10,12 @@ import com.ensolvers.tasks.domain.repository.TaskRepository;
 
 @Component
 public class TaskManager {
+	@Autowired
 	private TaskRepository taskRepository;
 
 	public Task createTaskInDomain(Task task) {
-		taskRepository.createTask(task);
-		return task;
+		System.out.println("llegué a taskmanager con la tarea " + task.getName() + "y voy para el repository");
+		return taskRepository.createTask(task);
 	}
 
 	public Task editTask(Task task) {

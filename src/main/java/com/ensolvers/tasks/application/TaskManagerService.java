@@ -1,12 +1,19 @@
-package com.ensolvers.tasks.application.services;
+package com.ensolvers.tasks.application;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import com.ensolvers.tasks.application.services.CreateTaskService;
+import com.ensolvers.tasks.application.services.DeleteTaskService;
+import com.ensolvers.tasks.application.services.EditTaskService;
+import com.ensolvers.tasks.application.services.FindTaskByNameService;
+import com.ensolvers.tasks.application.services.ListTasksService;
 import com.ensolvers.tasks.domain.model.Task;
 import com.ensolvers.tasks.domain.model.TaskManager;
 
+@Service
 public class TaskManagerService implements CreateTaskService, DeleteTaskService, EditTaskService, FindTaskByNameService, ListTasksService{
 
 	@Autowired
