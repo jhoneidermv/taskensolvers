@@ -1,9 +1,12 @@
 package com.ensolvers.tasks.infraestructure.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ensolvers.tasks.application.services.CreateTaskService;
 import com.ensolvers.tasks.application.services.DeleteTaskService;
 import com.ensolvers.tasks.application.services.EditTaskService;
+import com.ensolvers.tasks.application.services.ListTasksService;
 import com.ensolvers.tasks.application.services.UpdateStateService;
 import com.ensolvers.tasks.domain.exception.TaskException;
 import com.ensolvers.tasks.domain.model.Task;
@@ -33,6 +37,9 @@ public class TaskController {
 	
 	@Autowired
 	private UpdateStateService updateStateService;
+	
+	@Autowired
+	private ListTasksService listTaskService;
 	
 	@PostMapping(value = "/create")
 	public ResponseEntity<?> createTask(@RequestBody Task task) throws TaskException{
@@ -70,5 +77,14 @@ public class TaskController {
 		return ResponseEntity.ok(updatedTask);
 	}
 	
+	@GetMapping(value = "list")
+	public ResponseEntity<?> listTasks(){
+		try {
+			List<Task> listTask = listTaskService.listTasks();
+			return ResponseEntity.ok(listTask);
+		} catch (Exception e) {
+			return new ResponseEntity<>("Error: " + e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+	}
 	
 }

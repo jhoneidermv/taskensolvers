@@ -46,7 +46,12 @@ public class TaskManager {
 	}
 	
 	public List<Task> listTasks() {
-		return taskRepository.listTasks();
+		List<Task> listTask = taskRepository.listTasks();
+		if(!listTask.isEmpty()) {
+			return listTask;
+		} else {
+			throw new TaskException("No existen tareas");
+		}
 	}
 	
 	public Task updateState(long id) {
