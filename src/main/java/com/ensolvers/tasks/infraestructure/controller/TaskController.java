@@ -1,7 +1,5 @@
 package com.ensolvers.tasks.infraestructure.controller;
 
-import javax.websocket.server.PathParam;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,12 +9,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ensolvers.tasks.application.services.CreateTaskService;
 import com.ensolvers.tasks.application.services.DeleteTaskService;
 import com.ensolvers.tasks.application.services.EditTaskService;
+import com.ensolvers.tasks.application.services.UpdateStateService;
 import com.ensolvers.tasks.domain.exception.TaskException;
 import com.ensolvers.tasks.domain.model.Task;
 
@@ -32,6 +30,9 @@ public class TaskController {
 	
 	@Autowired
 	private EditTaskService editTaskService;
+	
+	@Autowired
+	private UpdateStateService updateStateService;
 	
 	@PostMapping(value = "/create")
 	public ResponseEntity<?> createTask(@RequestBody Task task) throws TaskException{
@@ -61,6 +62,12 @@ public class TaskController {
 		} catch (Exception e) {
 			return new ResponseEntity<>("Error: " + e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
+	}
+	
+	@PutMapping(value = "/updateState/{id}")
+	public ResponseEntity<?> updateState(@PathVariable(name = "id") long idTask) {
+		Task updatedTask = updateStateService.updateState(idTask);
+		return ResponseEntity.ok(updatedTask);
 	}
 	
 	

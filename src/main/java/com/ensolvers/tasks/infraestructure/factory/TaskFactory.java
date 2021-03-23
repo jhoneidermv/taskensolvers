@@ -11,11 +11,12 @@ public class TaskFactory {
 		TaskEntity taskEntity = new TaskEntity();
 		taskEntity.setName(task.getName());
 		taskEntity.setId(task.getId());
+		taskEntity.setState(task.isState());
 		return taskEntity;
 	}
 	
 	public static Task convertTaskentityToTaskdomain(TaskEntity taskEntity) {
-		return new Task(taskEntity.getId(), taskEntity.getName());
+		return new Task(taskEntity.getId(), taskEntity.getName(), taskEntity.isState());
 	}
 	
 	public static List<Task> convertListentityToListdomain(List<TaskEntity> listEntity) {

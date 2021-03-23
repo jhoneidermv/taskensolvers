@@ -55,4 +55,13 @@ public class TaskDAOImpl implements TaskRepository {
 		return TaskFactory.convertListentityToListdomain(taskDAO.findByName(name));
 	}
 
+	@Override
+	public Task updateState(Task task) {
+		task.setState(!task.isState());
+		TaskEntity taskEntity = taskDAO.save(TaskFactory.convertTaskdomainToTaskentity(task));
+		return TaskFactory.convertTaskentityToTaskdomain(taskEntity);
+	}
+
+	
+
 }

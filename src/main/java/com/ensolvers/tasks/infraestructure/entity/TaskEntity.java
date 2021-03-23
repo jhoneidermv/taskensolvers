@@ -20,6 +20,8 @@ public class TaskEntity implements Serializable {
 	private long id;
 	@Column(unique = true)
 	private String name;
+	@Column(name = "state")
+	private boolean state;
 
 	public String getName() {
 		return name;
@@ -35,5 +37,17 @@ public class TaskEntity implements Serializable {
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public boolean isState() {
+		return state;
+	}
+
+	public void setState(boolean state) {
+		this.state = state;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 }

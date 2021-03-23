@@ -10,11 +10,13 @@ import com.ensolvers.tasks.application.services.DeleteTaskService;
 import com.ensolvers.tasks.application.services.EditTaskService;
 import com.ensolvers.tasks.application.services.FindTaskByIdService;
 import com.ensolvers.tasks.application.services.ListTasksService;
+import com.ensolvers.tasks.application.services.UpdateStateService;
 import com.ensolvers.tasks.domain.model.Task;
 import com.ensolvers.tasks.domain.model.TaskManager;
 
 @Service
-public class TaskManagerService implements CreateTaskService, DeleteTaskService, EditTaskService, FindTaskByIdService, ListTasksService{
+public class TaskManagerService implements CreateTaskService, DeleteTaskService, EditTaskService,
+FindTaskByIdService, ListTasksService, UpdateStateService {
 
 	@Autowired
 	private TaskManager taskManager;
@@ -42,6 +44,11 @@ public class TaskManagerService implements CreateTaskService, DeleteTaskService,
 	@Override
 	public Task createTask(Task task) {
 		return taskManager.createTaskInDomain(task);
+	}
+
+	@Override
+	public Task updateState(long id) {
+		return taskManager.updateState(id);
 	}
 
 }

@@ -11,4 +11,5 @@ public interface TaskRepository {
 	public Task findTaskById(long id);
 	public List<Task> listTasks();
 	public List<Task> findByName(String name);
+	public Task updateState(Task task);
 }

@@ -14,8 +14,8 @@ public class TaskManager {
 	private TaskRepository taskRepository;
 
 	public Task createTaskInDomain(Task task) {
-		List<Task> foundTask = taskRepository.findByName(task.getName());
-		if(foundTask.isEmpty()) {
+		List<Task> foundedTask = taskRepository.findByName(task.getName());
+		if(foundedTask.isEmpty()) {
 			return taskRepository.createTask(task);
 		} else {
 			throw new TaskException("La tarea ya existe");
@@ -23,19 +23,19 @@ public class TaskManager {
 	}
 
 	public Task editTask(Task task) {
-		Task foundTask = taskRepository.findTaskById(task.getId());
-		if(foundTask != null) {
-			foundTask = task;
-			return taskRepository.editTask(foundTask);
+		Task foundedTask = taskRepository.findTaskById(task.getId());
+		if(foundedTask != null) {
+			foundedTask = task;
+			return taskRepository.editTask(foundedTask);
 		} else {
 			throw new TaskException("Tarea no encontrada");
 		}
 	}
 
 	public Task deleteTask(long idTask) {
-		Task foundTask = taskRepository.findTaskById(idTask);
-		if(foundTask != null) {
-			return taskRepository.deleteTask(foundTask);
+		Task foundedTask = taskRepository.findTaskById(idTask);
+		if(foundedTask != null) {
+			return taskRepository.deleteTask(foundedTask);
 		} else {
 			throw new TaskException("Tarea no encontrada");
 		}
@@ -47,5 +47,14 @@ public class TaskManager {
 	
 	public List<Task> listTasks() {
 		return taskRepository.listTasks();
+	}
+	
+	public Task updateState(long id) {
+		Task foundedTask = taskRepository.findTaskById(id);
+		if(foundedTask != null) {
+			return taskRepository.updateState(foundedTask);
+		} else {
+			throw new TaskException("Tarea no encontrada");
+		}
 	}
 }
