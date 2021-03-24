@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ensolvers.tasks.application.services.CreateTaskService;
 import com.ensolvers.tasks.application.services.DeleteTaskService;
 import com.ensolvers.tasks.application.services.EditTaskService;
+import com.ensolvers.tasks.application.services.FindTaskByIdService;
 import com.ensolvers.tasks.application.services.ListTasksService;
 import com.ensolvers.tasks.application.services.UpdateStateService;
 import com.ensolvers.tasks.domain.exception.TaskException;
@@ -42,6 +43,9 @@ public class TaskController {
 	
 	@Autowired
 	private ListTasksService listTaskService;
+	
+	@Autowired
+	private FindTaskByIdService findTaskById;
 	
 	@PostMapping(value = "/create")
 	public ResponseEntity<?> createTask(@RequestBody Task task) throws TaskException{
@@ -73,7 +77,7 @@ public class TaskController {
 		}
 	}
 	
-	@PutMapping(value = "/updateState/{id}")
+	@PutMapping(value = "/updatestate/{id}")
 	public ResponseEntity<?> updateState(@PathVariable(name = "id") long idTask) {
 		Task updatedTask = updateStateService.updateState(idTask);
 		return ResponseEntity.ok(updatedTask);
@@ -84,6 +88,16 @@ public class TaskController {
 		try {
 			List<Task> listTask = listTaskService.listTasks();
 			return ResponseEntity.ok(listTask);
+		} catch (Exception e) {
+			return new ResponseEntity<>("Error: " + e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@GetMapping(value = "/gettask/{id}")
+	public ResponseEntity<?> getTask(@PathVariable(name = "id") long idTask) {
+		try {
+			Task foundedTask = findTaskById.findTaskById(idTask);
+			return ResponseEntity.ok(foundedTask);
 		} catch (Exception e) {
 			return new ResponseEntity<>("Error: " + e.getMessage(), HttpStatus.BAD_REQUEST);
 		}

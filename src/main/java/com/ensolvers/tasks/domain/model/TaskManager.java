@@ -42,7 +42,12 @@ public class TaskManager {
 	}
 	
 	public Task findById(long id) {
-		return taskRepository.findTaskById(id);
+		Task task = taskRepository.findTaskById(id);
+		if(task != null) {
+			return task;
+		} else {
+			throw new TaskException("Tarea no encontrada");
+		}
 	}
 	
 	public List<Task> listTasks() {
